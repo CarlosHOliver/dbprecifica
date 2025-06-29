@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dobradura Artes - Sistema de Precificação</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
@@ -33,17 +34,23 @@
         }
     </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #FFF0F5 0%, #FFEAF1 100%);
             min-height: 100vh;
         }
         .card {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 1.5rem;
-            box-shadow: 0 8px 32px rgba(255, 155, 200, 0.1);
-            border: 1px solid rgba(255, 209, 220, 0.3);
+            box-shadow: 0 8px 32px rgba(255, 155, 200, 0.15);
+            border: 1px solid rgba(255, 209, 220, 0.4);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 12px 40px rgba(255, 155, 200, 0.2);
         }
         .btn-primary {
             background: linear-gradient(to right, #FF9EC0, #FF6B9C);
@@ -54,10 +61,15 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(255, 107, 156, 0.25);
             border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(255, 107, 156, 0.35);
+            background: linear-gradient(to right, #FF8AB2, #FF5A8F);
         }
         .btn-secondary {
             background: #FFD1DC;
@@ -66,6 +78,10 @@
             padding: 0.8rem 1.5rem;
             border-radius: 0.75rem;
             transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         .btn-secondary:hover {
             background: #FFB8CA;
@@ -78,6 +94,7 @@
             border-radius: 0.75rem;
             background: rgba(255, 255, 255, 0.7);
             transition: all 0.3s ease;
+            font-size: 1rem;
         }
         .input-field:focus {
             outline: none;
@@ -100,10 +117,11 @@
             font-weight: 600;
         }
         .preco-destaque {
-            background: linear-gradient(135deg, #FFD1DC, #FF9EC0);
+            background: linear-gradient(135deg, #FF6B9C, #FF9EC0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 700;
+            font-size: 1.5rem;
         }
         .floating-btn {
             position: fixed;
@@ -121,6 +139,7 @@
             font-size: 1.5rem;
             z-index: 50;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         .floating-btn:hover {
             transform: translateY(-5px) scale(1.05);
@@ -132,20 +151,40 @@
             gap: 0.75rem;
         }
         .logo-icon {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, #FF9EC0, #FF6B9C);
-            border-radius: 16px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 12px rgba(255, 107, 156, 0.3);
         }
         .header-divider {
             height: 3px;
-            background: linear-gradient(to right, transparent, #FFD1DC, transparent);
+            background: linear-gradient(to right, transparent, #FFD1DC, #FF9EC0, #FFD1DC, transparent);
             margin: 1.5rem 0;
+            border-radius: 50%;
+        }
+        .section-header {
+            background: linear-gradient(to right, #FFD1DC, #FF9EC0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        .message-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: linear-gradient(to bottom, #FF9EC0, #FF6B9C);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
         }
     </style>
 </head>
@@ -155,39 +194,33 @@
         <div class="flex flex-col items-center mb-8 text-center">
             <div class="logo mb-4">
                 <div class="logo-icon">
-                    ✿
+                    <i class="fa-solid fa-paper-plane"></i>
                 </div>
                 <div>
                     <h1 class="text-3xl font-bold text-cinza-escuro">Dobradura Artes</h1>
-                    <h3 class="text-rosa-destaque font-medium">Bianca Campanari</h3>
+                    <h3 class="text-rosa-destaque font-medium mt-1">Bianca Campanari</h3>
                 </div>
             </div>
-            <p class="text-cinza-medio max-w-md">Sistema para cálculo preciso de custos e precificação de produtos artesanais</p>
+            <p class="text-cinza-medio max-w-md text-lg">Sistema para cálculo preciso de custos e precificação de produtos artesanais</p>
         </div>
         <div class="header-divider"></div>
 
         <!-- Mensagem de feedback -->
         <div id="messageBox" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-2xl shadow-soft z-50 hidden max-w-sm w-full text-center">
-            <div class="mb-5">
-                <div class="w-16 h-16 rounded-full bg-rosa-claro flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-rosa-destaque" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                </div>
-                <p id="messageText" class="text-cinza-escuro font-medium"></p>
+            <div class="message-icon">
+                <i class="fa-solid fa-paper-plane"></i>
             </div>
-            <button class="btn-primary w-full mt-4" onclick="hideMessage()">OK</button>
+            <p id="messageText" class="text-cinza-escuro font-medium text-lg"></p>
+            <button class="btn-primary w-full mt-6" onclick="hideMessage()">OK</button>
         </div>
 
         <!-- Seção de Cadastro de Insumos -->
         <div class="card p-6 mb-8">
             <div class="flex items-center gap-3 mb-6">
                 <div class="w-10 h-10 rounded-full bg-rosa-claro flex items-center justify-center">
-                    <svg class="w-5 h-5 text-rosa-destaque" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                    </svg>
+                    <i class="fa-solid fa-box text-rosa-destaque"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-cinza-escuro">Cadastro de Insumos</h2>
+                <h2 class="text-2xl font-bold section-header">Cadastro de Insumos</h2>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -205,17 +238,13 @@
                 </div>
             </div>
             
-            <button onclick="adicionarInsumo()" class="btn-primary w-full flex items-center justify-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                </svg>
+            <button onclick="adicionarInsumo()" class="btn-primary w-full">
+                <i class="fa-solid fa-plus"></i>
                 Adicionar Insumo
             </button>
 
             <h3 class="text-xl font-semibold text-cinza-escuro mt-8 mb-4 flex items-center gap-2">
-                <svg class="w-5 h-5 text-rosa-destaque" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                </svg>
+                <i class="fa-solid fa-clipboard-list text-rosa-destaque"></i>
                 Insumos Cadastrados
             </h3>
             
@@ -228,11 +257,9 @@
         <div class="card p-6">
             <div class="flex items-center gap-3 mb-6">
                 <div class="w-10 h-10 rounded-full bg-rosa-claro flex items-center justify-center">
-                    <svg class="w-5 h-5 text-rosa-destaque" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                    </svg>
+                    <i class="fa-solid fa-calculator text-rosa-destaque"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-cinza-escuro">Criação e Precificação de Produtos</h2>
+                <h2 class="text-2xl font-bold section-header">Criação e Precificação de Produtos</h2>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -247,9 +274,7 @@
             </div>
 
             <h3 class="text-xl font-semibold text-cinza-escuro mt-8 mb-4 flex items-center gap-2">
-                <svg class="w-5 h-5 text-rosa-destaque" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
-                </svg>
+                <i class="fa-solid fa-list-check text-rosa-destaque"></i>
                 Insumos para o Produto
             </h3>
             
@@ -257,24 +282,18 @@
                 <!-- Linhas de insumos do produto serão adicionadas aqui -->
             </div>
             
-            <button onclick="adicionarLinhaInsumoProduto()" class="btn-secondary w-full mb-8 flex items-center justify-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                </svg>
+            <button onclick="adicionarLinhaInsumoProduto()" class="btn-secondary w-full mb-8">
+                <i class="fa-solid fa-plus"></i>
                 Adicionar Insumo ao Produto
             </button>
 
-            <button onclick="calcularPrecoProduto()" class="btn-primary w-full flex items-center justify-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                </svg>
+            <button onclick="calcularPrecoProduto()" class="btn-primary w-full">
+                <i class="fa-solid fa-calculator"></i>
                 Calcular e Adicionar Produto
             </button>
 
             <h3 class="text-xl font-semibold text-cinza-escuro mt-8 mb-4 flex items-center gap-2">
-                <svg class="w-5 h-5 text-rosa-destaque" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                </svg>
+                <i class="fa-solid fa-boxes-packing text-rosa-destaque"></i>
                 Produtos Cadastrados
             </h3>
             
@@ -284,8 +303,8 @@
         </div>
 
         <!-- Botão flutuante para ajuda -->
-        <div class="floating-btn cursor-pointer" onclick="showMessage('Precisa de ajuda? Entre em contato com suporte@dobraduraartes.com')">
-            ?
+        <div class="floating-btn" onclick="showMessage('Precisa de ajuda? Entre em contato com suporte@dobraduraartes.com')">
+            <i class="fa-solid fa-question"></i>
         </div>
 
         <!-- Rodapé -->
@@ -379,9 +398,7 @@
                         </div>
                     </div>
                     <button onclick="removerInsumo('${insumo.id}')" class="text-rosa-destaque hover:text-rosa-escuro p-2 rounded-full hover:bg-rosa-claro transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                        </svg>
+                        <i class="fa-solid fa-trash"></i>
                     </button>
                 `;
                 ul.appendChild(div);
@@ -438,11 +455,7 @@
 
             // Botão de remover linha
             const removeBtn = document.createElement('button');
-            removeBtn.innerHTML = `
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            `;
+            removeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
             removeBtn.classList.add('p-2', 'rounded-lg', 'text-rosa-destaque', 'hover:bg-rosa-medio', 'transition-colors');
             removeBtn.onclick = () => container.removeChild(div);
 
@@ -514,7 +527,7 @@
 
             produtos.push(novoProduto);
             renderizarProdutos();
-            showMessage(`Produto "${nomeProduto}" adicionado com sucesso!<br>Preço de Venda: <span class="font-bold text-rosa-destaque">R$ ${precoVenda.toFixed(2)}</span>`);
+            showMessage(`Produto "${nomeProduto}" adicionado com sucesso!\nPreço de Venda: R$ ${precoVenda.toFixed(2)}`);
 
             // Limpa os campos do formulário do produto
             document.getElementById('produtoNome').value = '';
@@ -544,17 +557,15 @@
                             <h3 class="text-xl font-bold text-cinza-escuro">${produto.nome}</h3>
                             <div class="flex gap-3 mt-2">
                                 <div class="text-sm bg-rosa-claro px-3 py-1 rounded-full text-rosa-destaque font-medium">
-                                    Custo: R$ ${produto.custoTotal.toFixed(2)}
+                                    <i class="fa-solid fa-money-bill-wave mr-1"></i> Custo: R$ ${produto.custoTotal.toFixed(2)}
                                 </div>
                                 <div class="text-sm bg-verde-suave px-3 py-1 rounded-full text-gray-700 font-medium">
-                                    Margem: ${produto.margemLucro}%
+                                    <i class="fa-solid fa-chart-line mr-1"></i> Margem: ${produto.margemLucro}%
                                 </div>
                             </div>
                         </div>
                         <button onclick="removerProduto('${produto.id}')" class="text-rosa-destaque hover:text-rosa-escuro p-2 rounded-full hover:bg-rosa-claro transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                            </svg>
+                            <i class="fa-solid fa-trash"></i>
                         </button>
                     </div>
                     
@@ -563,10 +574,16 @@
                             <p class="text-sm font-medium text-cinza-medio mb-1">Preço de Venda:</p>
                             <p class="text-2xl font-bold preco-destaque">R$ ${produto.precoFinal.toFixed(2)}</p>
                         </div>
+                        <div class="text-rosa-destaque text-4xl">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </div>
                     </div>
                     
                     <div class="mt-5 pt-4 border-t border-rosa-claro">
-                        <h4 class="text-sm font-semibold text-cinza-medio mb-2">INSUMOS UTILIZADOS:</h4>
+                        <h4 class="text-sm font-semibold text-cinza-medio mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-box"></i>
+                            INSUMOS UTILIZADOS:
+                        </h4>
                         <ul class="space-y-2">
                             ${produto.insumosUtilizados.map(item => `
                                 <li class="flex justify-between text-sm">
