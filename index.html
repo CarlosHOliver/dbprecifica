@@ -354,8 +354,9 @@
         const SUPABASE_URL = 'https://qtpitnqfmppfatsfdxlf.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0cGl0bnFmbXBwZmF0c2ZkeGxmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI3NzMzNjIsImV4cCI6MjA2ODM0OTM2Mn0.8xIMCtWG5xpelKGcxps9LtIdPx_rbFckeqQ4y39TcCM';
         
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        
+        // Declaração global do cliente Supabase
+        let supabase = null;
+
         // Array para armazenar insumos e produtos
         let insumos = [];
         let produtos = [];
@@ -365,9 +366,19 @@
             return '_' + Math.random().toString(36).substr(2, 9);
         }
 
+        // Função para inicializar o Supabase
+        function initSupabase() {
+            if (!supabase && window.supabase) {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            }
+            return supabase;
+        }
+
         // Funções para Banco de Dados Supabase
         async function carregarDados() {
             try {
+                initSupabase();
+                
                 document.getElementById('insumosSpinner').style.display = 'block';
                 document.getElementById('produtosSpinner').style.display = 'block';
                 document.getElementById('insumosEmptyMessage').style.display = 'none';
@@ -410,6 +421,8 @@
         
         async function salvarInsumo(insumo) {
             try {
+                initSupabase();
+                
                 const { data, error } = await supabase
                     .from('insumos')
                     .upsert([insumo]);
@@ -427,6 +440,8 @@
         
         async function removerInsumoDB(id) {
             try {
+                initSupabase();
+                
                 const { error } = await supabase
                     .from('insumos')
                     .delete()
@@ -445,9 +460,17 @@
         
         async function salvarProduto(produto) {
             try {
+                initSupabase();
+                
+                // Converter o array de insumos para string JSON
+                const produtoParaSalvar = {
+                    ...produto,
+                    insumosUtilizados: JSON.stringify(produto.insumosUtilizados)
+                };
+                
                 const { data, error } = await supabase
                     .from('produtos')
-                    .upsert([produto]);
+                    .upsert([produtoParaSalvar]);
                 
                 if (error) {
                     throw error;
@@ -462,6 +485,8 @@
         
         async function removerProdutoDB(id) {
             try {
+                initSupabase();
+                
                 const { error } = await supabase
                     .from('produtos')
                     .delete()
@@ -480,6 +505,8 @@
         
         async function limparBancoDeDados() {
             try {
+                initSupabase();
+                
                 // Limpar todos os insumos
                 const { error: insumosError } = await supabase
                     .from('insumos')
@@ -797,6 +824,12 @@
             div.classList.add('space-y-6');
             
             produtos.forEach(produto => {
+                // Convertendo insumosUtilizados de volta para array se necessário
+                let insumosUtilizados = produto.insumosUtilizados;
+                if (typeof insumosUtilizados === 'string') {
+                    insumosUtilizados = JSON.parse(insumosUtilizados);
+                }
+                
                 const produtoDiv = document.createElement('div');
                 produtoDiv.classList.add('produto-item', 'bg-white', 'p-5', 'rounded-xl', 'shadow-sm', 'fade-in');
                 produtoDiv.innerHTML = `
@@ -833,7 +866,7 @@
                             INSUMOS UTILIZADOS:
                         </h4>
                         <ul class="space-y-2">
-                            ${produto.insumosUtilizados.map(item => `
+                            ${insumosUtilizados.map(item => `
                                 <li class="flex justify-between text-sm">
                                     <span>${item.nome}</span>
                                     <span>${item.quantidade} ${item.unidade} × R$ ${item.custoUnitario.toFixed(2)}</span>
@@ -863,6 +896,9 @@
 
         // Inicialização
         window.onload = function() {
+            // Inicializa o Supabase
+            initSupabase();
+            
             // Carrega os dados do Supabase
             carregarDados();
         };
