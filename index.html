@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Precificação - Dobradura Artes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -198,6 +199,21 @@
             font-weight: bold;
             margin-bottom: 0.5rem;
         }
+        
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #FF6B9C;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -262,7 +278,10 @@
             </h3>
             
             <div id="listaInsumos" class="bg-rosa-claro p-4 rounded-xl min-h-[150px]">
-                <p class="text-cinza-medio italic text-center py-8">Nenhum insumo cadastrado ainda.</p>
+                <div class="flex justify-center py-6">
+                    <div class="loading-spinner" id="insumosSpinner"></div>
+                    <p class="text-cinza-medio italic text-center py-8" id="insumosEmptyMessage">Nenhum insumo cadastrado ainda.</p>
+                </div>
             </div>
         </div>
 
@@ -311,7 +330,10 @@
             </h3>
             
             <div id="listaProdutos" class="space-y-4">
-                <p class="text-cinza-medio italic text-center py-8">Nenhum produto precificado ainda.</p>
+                <div class="flex justify-center py-6">
+                    <div class="loading-spinner" id="produtosSpinner"></div>
+                    <p class="text-cinza-medio italic text-center py-8" id="produtosEmptyMessage">Nenhum produto precificado ainda.</p>
+                </div>
             </div>
         </div>
 
@@ -328,31 +350,157 @@
     </div>
 
     <script>
+        // Configuração do Supabase - Substitua com suas credenciais
+        const SUPABASE_URL = 'https://qtpitnqfmppfatsfdxlf.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0cGl0bnFmbXBwZmF0c2ZkeGxmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI3NzMzNjIsImV4cCI6MjA2ODM0OTM2Mn0.8xIMCtWG5xpelKGcxps9LtIdPx_rbFckeqQ4y39TcCM';
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        
         // Array para armazenar insumos e produtos
         let insumos = [];
         let produtos = [];
-
+        
         // Função para gerar um ID único
         function gerarIdUnico() {
             return '_' + Math.random().toString(36).substr(2, 9);
         }
 
-        // Funções para LocalStorage
-        function salvarDados() {
-            localStorage.setItem('insumos', JSON.stringify(insumos));
-            localStorage.setItem('produtos', JSON.stringify(produtos));
-        }
-
-        function carregarDados() {
-            const savedInsumos = localStorage.getItem('insumos');
-            const savedProdutos = localStorage.getItem('produtos');
-            
-            if (savedInsumos) {
-                insumos = JSON.parse(savedInsumos);
+        // Funções para Banco de Dados Supabase
+        async function carregarDados() {
+            try {
+                document.getElementById('insumosSpinner').style.display = 'block';
+                document.getElementById('produtosSpinner').style.display = 'block';
+                document.getElementById('insumosEmptyMessage').style.display = 'none';
+                document.getElementById('produtosEmptyMessage').style.display = 'none';
+                
+                // Carregar insumos
+                const { data: insumosData, error: insumosError } = await supabase
+                    .from('insumos')
+                    .select('*');
+                
+                if (!insumosError && insumosData) {
+                    insumos = insumosData;
+                    renderizarInsumos();
+                }
+                
+                // Carregar produtos
+                const { data: produtosData, error: produtosError } = await supabase
+                    .from('produtos')
+                    .select('*');
+                
+                if (!produtosError && produtosData) {
+                    produtos = produtosData;
+                    renderizarProdutos();
+                }
+                
+                // Atualiza todos os dropdowns de insumos
+                atualizarDropdownsInsumos();
+                
+                // Adicionar linha de insumo para produto
+                adicionarLinhaInsumoProduto();
+                
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+                showMessage('Erro ao carregar dados do servidor.');
+            } finally {
+                document.getElementById('insumosSpinner').style.display = 'none';
+                document.getElementById('produtosSpinner').style.display = 'none';
             }
-            
-            if (savedProdutos) {
-                produtos = JSON.parse(savedProdutos);
+        }
+        
+        async function salvarInsumo(insumo) {
+            try {
+                const { data, error } = await supabase
+                    .from('insumos')
+                    .upsert([insumo]);
+                
+                if (error) {
+                    throw error;
+                }
+                return data;
+            } catch (error) {
+                console.error('Erro ao salvar insumo:', error);
+                showMessage('Erro ao salvar insumo no banco de dados.');
+                return null;
+            }
+        }
+        
+        async function removerInsumoDB(id) {
+            try {
+                const { error } = await supabase
+                    .from('insumos')
+                    .delete()
+                    .eq('id', id);
+                
+                if (error) {
+                    throw error;
+                }
+                return true;
+            } catch (error) {
+                console.error('Erro ao remover insumo:', error);
+                showMessage('Erro ao remover insumo do banco de dados.');
+                return false;
+            }
+        }
+        
+        async function salvarProduto(produto) {
+            try {
+                const { data, error } = await supabase
+                    .from('produtos')
+                    .upsert([produto]);
+                
+                if (error) {
+                    throw error;
+                }
+                return data;
+            } catch (error) {
+                console.error('Erro ao salvar produto:', error);
+                showMessage('Erro ao salvar produto no banco de dados.');
+                return null;
+            }
+        }
+        
+        async function removerProdutoDB(id) {
+            try {
+                const { error } = await supabase
+                    .from('produtos')
+                    .delete()
+                    .eq('id', id);
+                
+                if (error) {
+                    throw error;
+                }
+                return true;
+            } catch (error) {
+                console.error('Erro ao remover produto:', error);
+                showMessage('Erro ao remover produto do banco de dados.');
+                return false;
+            }
+        }
+        
+        async function limparBancoDeDados() {
+            try {
+                // Limpar todos os insumos
+                const { error: insumosError } = await supabase
+                    .from('insumos')
+                    .delete()
+                    .neq('id', '');
+                
+                // Limpar todos os produtos
+                const { error: produtosError } = await supabase
+                    .from('produtos')
+                    .delete()
+                    .neq('id', '');
+                
+                if (insumosError || produtosError) {
+                    throw insumosError || produtosError;
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Erro ao limpar banco de dados:', error);
+                showMessage('Erro ao limpar dados do servidor.');
+                return false;
             }
         }
 
@@ -375,16 +523,22 @@
         }
 
         // Função para limpar todos os dados
-        function limparDados() {
+        async function limparDados() {
             if (confirm('Tem certeza que deseja limpar todos os dados? Esta ação não pode ser desfeita.')) {
-                localStorage.clear();
+                // Limpa localmente
                 insumos = [];
                 produtos = [];
-                renderizarInsumos();
-                renderizarProdutos();
-                document.getElementById('insumosProdutoContainer').innerHTML = '';
-                adicionarLinhaInsumoProduto();
-                showMessage('Todos os dados foram removidos com sucesso!');
+                
+                // Limpa o banco de dados
+                const sucesso = await limparBancoDeDados();
+                
+                if (sucesso) {
+                    renderizarInsumos();
+                    renderizarProdutos();
+                    document.getElementById('insumosProdutoContainer').innerHTML = '';
+                    adicionarLinhaInsumoProduto();
+                    showMessage('Todos os dados foram removidos com sucesso!');
+                }
             }
         }
 
@@ -413,7 +567,7 @@
         }
 
         // Funções para insumos
-        function adicionarInsumo() {
+        async function adicionarInsumo() {
             const nome = document.getElementById('insumoNome').value.trim();
             const custo = parseFloat(document.getElementById('insumoCusto').value);
             const unidade = document.getElementById('insumoUnidade').value.trim();
@@ -430,19 +584,24 @@
                 unidade: unidade
             };
 
-            insumos.push(novoInsumo);
-            salvarDados();
-            renderizarInsumos();
+            // Salva no Supabase
+            const resultado = await salvarInsumo(novoInsumo);
             
-            // Atualiza todos os dropdowns de insumos
-            atualizarDropdownsInsumos();
-            
-            showMessage(`Insumo <span class="font-bold text-rosa-destaque">${nome}</span> adicionado com sucesso!`);
+            if (resultado) {
+                // Atualiza localmente
+                insumos.push(novoInsumo);
+                renderizarInsumos();
+                
+                // Atualiza todos os dropdowns de insumos
+                atualizarDropdownsInsumos();
+                
+                showMessage(`Insumo <span class="font-bold text-rosa-destaque">${nome}</span> adicionado com sucesso!`);
 
-            // Limpa os campos
-            document.getElementById('insumoNome').value = '';
-            document.getElementById('insumoCusto').value = '';
-            document.getElementById('insumoUnidade').value = '';
+                // Limpa os campos
+                document.getElementById('insumoNome').value = '';
+                document.getElementById('insumoCusto').value = '';
+                document.getElementById('insumoUnidade').value = '';
+            }
         }
 
         function renderizarInsumos() {
@@ -450,7 +609,7 @@
             listaInsumosDiv.innerHTML = '';
 
             if (insumos.length === 0) {
-                listaInsumosDiv.innerHTML = '<p class="text-cinza-medio italic text-center py-8">Nenhum insumo cadastrado ainda.</p>';
+                document.getElementById('insumosEmptyMessage').style.display = 'block';
                 return;
             }
 
@@ -476,17 +635,23 @@
             });
             
             listaInsumosDiv.appendChild(ul);
+            document.getElementById('insumosEmptyMessage').style.display = 'none';
         }
 
-        function removerInsumo(id) {
-            insumos = insumos.filter(insumo => insumo.id !== id);
-            salvarDados();
-            renderizarInsumos();
+        async function removerInsumo(id) {
+            // Remove do Supabase
+            const sucesso = await removerInsumoDB(id);
             
-            // Atualiza todos os dropdowns de insumos
-            atualizarDropdownsInsumos();
-            
-            showMessage('Insumo removido com sucesso.');
+            if (sucesso) {
+                // Remove localmente
+                insumos = insumos.filter(insumo => insumo.id !== id);
+                renderizarInsumos();
+                
+                // Atualiza todos os dropdowns de insumos
+                atualizarDropdownsInsumos();
+                
+                showMessage('Insumo removido com sucesso.');
+            }
         }
 
         // Funções para produtos
@@ -536,7 +701,7 @@
             container.appendChild(div);
         }
 
-        function calcularPrecoProduto() {
+        async function calcularPrecoProduto() {
             const nomeProduto = document.getElementById('produtoNome').value.trim();
             const margemLucro = parseFloat(document.getElementById('produtoMargemLucro').value);
             const insumosProdutoElements = document.querySelectorAll('#insumosProdutoContainer > div');
@@ -555,14 +720,14 @@
             const insumosUtilizadosNoProduto = [];
             let hasError = false;
 
-            insumosProdutoElements.forEach(element => {
+            for (const element of insumosProdutoElements) {
                 const insumoId = element.querySelector('select').value;
                 const quantidade = parseFloat(element.querySelector('input[type="number"]').value);
 
                 if (!insumoId || isNaN(quantidade) || quantidade <= 0) {
                     showMessage('Por favor, selecione um insumo e insira uma quantidade válida.');
                     hasError = true;
-                    return;
+                    break;
                 }
 
                 const insumoEncontrado = insumos.find(i => i.id === insumoId);
@@ -578,9 +743,9 @@
                 } else {
                     showMessage(`Insumo não encontrado. Atualize a página e tente novamente.`);
                     hasError = true;
-                    return;
+                    break;
                 }
-            });
+            }
 
             if (hasError) return;
 
@@ -595,23 +760,28 @@
                 insumosUtilizados: insumosUtilizadosNoProduto
             };
 
-            produtos.push(novoProduto);
-            salvarDados();
-            renderizarProdutos();
+            // Salva no Supabase
+            const resultado = await salvarProduto(novoProduto);
             
-            showMessage(`
-                <div class="mb-3">
-                    <p>Produto <span class="font-bold text-rosa-destaque">"${nomeProduto}"</span></p>
-                    <p>adicionado com sucesso!</p>
-                </div>
-                <p class="text-lg">Preço de Venda: <span class="font-bold text-rosa-destaque text-xl">R$ ${precoVenda.toFixed(2)}</span></p>
-            `);
+            if (resultado) {
+                // Atualiza localmente
+                produtos.push(novoProduto);
+                renderizarProdutos();
+                
+                showMessage(`
+                    <div class="mb-3">
+                        <p>Produto <span class="font-bold text-rosa-destaque">"${nomeProduto}"</span></p>
+                        <p>adicionado com sucesso!</p>
+                    </div>
+                    <p class="text-lg">Preço de Venda: <span class="font-bold text-rosa-destaque text-xl">R$ ${precoVenda.toFixed(2)}</span></p>
+                `);
 
-            // Limpa os campos
-            document.getElementById('produtoNome').value = '';
-            document.getElementById('produtoMargemLucro').value = '';
-            document.getElementById('insumosProdutoContainer').innerHTML = '';
-            adicionarLinhaInsumoProduto();
+                // Limpa os campos
+                document.getElementById('produtoNome').value = '';
+                document.getElementById('produtoMargemLucro').value = '';
+                document.getElementById('insumosProdutoContainer').innerHTML = '';
+                adicionarLinhaInsumoProduto();
+            }
         }
 
         function renderizarProdutos() {
@@ -619,7 +789,7 @@
             listaProdutosDiv.innerHTML = '';
 
             if (produtos.length === 0) {
-                listaProdutosDiv.innerHTML = '<p class="text-cinza-medio italic text-center py-8">Nenhum produto precificado ainda.</p>';
+                document.getElementById('produtosEmptyMessage').style.display = 'block';
                 return;
             }
 
@@ -676,52 +846,25 @@
             });
             
             listaProdutosDiv.appendChild(div);
+            document.getElementById('produtosEmptyMessage').style.display = 'none';
         }
 
-        function removerProduto(id) {
-            produtos = produtos.filter(produto => produto.id !== id);
-            salvarDados();
-            renderizarProdutos();
-            showMessage('Produto removido com sucesso.');
+        async function removerProduto(id) {
+            // Remove do Supabase
+            const sucesso = await removerProdutoDB(id);
+            
+            if (sucesso) {
+                // Remove localmente
+                produtos = produtos.filter(produto => produto.id !== id);
+                renderizarProdutos();
+                showMessage('Produto removido com sucesso.');
+            }
         }
 
         // Inicialização
         window.onload = function() {
-            // 1. Carregar dados do localStorage
+            // Carrega os dados do Supabase
             carregarDados();
-            
-            // 2. Adicionar insumos de exemplo se necessário
-            if (insumos.length === 0) {
-                insumos.push({
-                    id: gerarIdUnico(),
-                    nome: "Papel Fotográfico A4",
-                    custo: 0.75,
-                    unidade: "folha"
-                });
-                insumos.push({
-                    id: gerarIdUnico(),
-                    nome: "Fita Decorativa",
-                    custo: 2.50,
-                    unidade: "metro"
-                });
-                insumos.push({
-                    id: gerarIdUnico(),
-                    nome: "Cola Artesanal",
-                    custo: 8.90,
-                    unidade: "pote"
-                });
-                
-                salvarDados();
-            }
-            
-            // 3. Renderizar insumos
-            renderizarInsumos();
-            
-            // 4. Renderizar produtos
-            renderizarProdutos();
-            
-            // 5. Adicionar linha de insumo para produto
-            adicionarLinhaInsumoProduto();
         };
     </script>
 </body>
