@@ -21,209 +21,43 @@
                         'cinza-claro': '#F5F5F5',
                         'verde-suave': '#A8E6CF'
                     },
-                    borderRadius: {
-                        'xl': '1rem',
-                        '2xl': '1.5rem'
-                    },
-                    boxShadow: {
-                        'soft': '0 4px 20px rgba(0, 0, 0, 0.05)',
-                        'soft-hover': '0 6px 24px rgba(0, 0, 0, 0.08)'
-                    }
+                    borderRadius: { 'xl': '1rem', '2xl': '1.5rem' },
+                    boxShadow: { 'soft': '0 4px 20px rgba(0, 0, 0, 0.05)', 'soft-hover': '0 6px 24px rgba(0, 0, 0, 0.08)' }
                 }
             }
         }
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        * {
-            transition: all 0.3s ease;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #FFF0F5 0%, #FFEAF1 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 1.5rem;
-            box-shadow: 0 8px 32px rgba(255, 155, 200, 0.15);
-            border: 1px solid rgba(255, 209, 220, 0.4);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(to right, #FF9EC0, #FF6B9C);
-            color: white;
-            font-weight: 600;
-            padding: 0.8rem 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 12px rgba(255, 107, 156, 0.25);
-            border: none;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(255, 107, 156, 0.35);
-            background: linear-gradient(to right, #FF8AB2, #FF5A8F);
-        }
-        
-        .btn-secondary {
-            background: #FFD1DC;
-            color: #5D5D5D;
-            font-weight: 600;
-            padding: 0.8rem 1.5rem;
-            border-radius: 0.75rem;
-        }
-        
-        .btn-secondary:hover {
-            background: #FFB8CA;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 180, 202, 0.25);
-        }
-        
-        .input-field {
-            padding: 0.9rem 1.2rem;
-            border: 2px solid #FFD1DC;
-            border-radius: 0.75rem;
-            background: rgba(255, 255, 255, 0.7);
-        }
-        
-        .input-field:focus {
-            outline: none;
-            border-color: #FF9EC0;
-            box-shadow: 0 0 0 3px rgba(255, 158, 192, 0.25);
-        }
-        
-        .insumo-item, .produto-item {
-            border-left: 4px solid #FFD1DC;
-        }
-        
-        .insumo-item:hover, .produto-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(255, 180, 202, 0.15);
-        }
-        
-        .preco-destaque {
-            background: linear-gradient(135deg, #FF6B9C, #FF9EC0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
-        
-        .floating-btn {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(to right, #FF9EC0, #FF6B9C);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 6px 20px rgba(255, 107, 156, 0.4);
-            font-size: 1.5rem;
-            z-index: 50;
-        }
-        
-        .floating-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(255, 107, 156, 0.5);
-        }
-        
-        .logo-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #FF9EC0, #FF6B9C);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.8rem;
-            box-shadow: 0 4px 12px rgba(255, 107, 156, 0.3);
-        }
-        
-        .header-divider {
-            height: 3px;
-            background: linear-gradient(to right, transparent, #FFD1DC, #FF9EC0, #FFD1DC, transparent);
-            margin: 1.5rem 0;
-            border-radius: 50%;
-        }
-        
-        .section-header {
-            background: linear-gradient(to right, #FFD1DC, #FF9EC0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
-        
-        .message-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 20px;
-            background: linear-gradient(to bottom, #FF9EC0, #FF6B9C);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.3s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .highlight-box {
-            border: 2px solid #FF6B9C;
-            border-radius: 0.75rem;
-            padding: 1rem;
-            margin: 1rem 0;
-            background: rgba(255, 214, 228, 0.2);
-        }
-        
-        .solution-title {
-            color: #FF6B9C;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-        
-        .loading-spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 4px solid #FF6B9C;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            display: none;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        * { transition: all 0.3s ease; }
+        body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #FFF0F5 0%, #FFEAF1 100%); min-height: 100vh; padding: 20px; }
+        .card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 1.5rem; box-shadow: 0 8px 32px rgba(255, 155, 200, 0.15); border: 1px solid rgba(255, 209, 220, 0.4); }
+        .btn-primary { background: linear-gradient(to right, #FF9EC0, #FF6B9C); color: white; font-weight: 600; padding: 0.8rem 1.5rem; border-radius: 0.75rem; box-shadow: 0 4px 12px rgba(255, 107, 156, 0.25); border: none; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(255, 107, 156, 0.35); background: linear-gradient(to right, #FF8AB2, #FF5A8F); }
+        .btn-secondary { background: #FFD1DC; color: #5D5D5D; font-weight: 600; padding: 0.8rem 1.5rem; border-radius: 0.75rem; }
+        .btn-secondary:hover { background: #FFB8CA; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255, 180, 202, 0.25); }
+        .input-field { padding: 0.9rem 1.2rem; border: 2px solid #FFD1DC; border-radius: 0.75rem; background: rgba(255, 255, 255, 0.7); }
+        .input-field:focus { outline: none; border-color: #FF9EC0; box-shadow: 0 0 0 3px rgba(255, 158, 192, 0.25); }
+        .insumo-item, .produto-item { border-left: 4px solid #FFD1DC; }
+        .insumo-item:hover, .produto-item:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(255, 180, 202, 0.15); }
+        .preco-destaque { background: linear-gradient(135deg, #FF6B9C, #FF9EC0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; font-size: 1.5rem; }
+        .floating-btn { position: fixed; bottom: 2rem; right: 2rem; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(to right, #FF9EC0, #FF6B9C); color: white; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(255, 107, 156, 0.4); font-size: 1.5rem; z-index: 50; }
+        .floating-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 25px rgba(255, 107, 156, 0.5); }
+        .logo-icon { width: 60px; height: 60px; background: linear-gradient(135deg, #FF9EC0, #FF6B9C); border-radius: 18px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; box-shadow: 0 4px 12px rgba(255, 107, 156, 0.3); }
+        .header-divider { height: 3px; background: linear-gradient(to right, transparent, #FFD1DC, #FF9EC0, #FFD1DC, transparent); margin: 1.5rem 0; border-radius: 50%; }
+        .section-header { background: linear-gradient(to right, #FFD1DC, #FF9EC0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+        .message-icon { width: 70px; height: 70px; margin: 0 auto 20px; background: linear-gradient(to bottom, #FF9EC0, #FF6B9C); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .loading-spinner { border: 4px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top: 4px solid #FF6B9C; width: 30px; height: 30px; animation: spin 1s linear infinite; display: none; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="p-4 md:p-8">
     <div class="max-w-4xl mx-auto">
-        <!-- Cabeçalho -->
         <div class="flex flex-col items-center mb-8 text-center">
             <div class="flex items-center gap-4 mb-4">
-                <div class="logo-icon">
-                    <i class="fa-solid fa-calculator"></i>
-                </div>
+                <div class="logo-icon"><i class="fa-solid fa-calculator"></i></div>
                 <div>
                     <h1 class="text-3xl font-bold text-cinza-escuro">Sistema de Precificação</h1>
                     <h3 class="text-rosa-destaque font-medium mt-1">Dobradura Artes</h3>
@@ -231,27 +65,19 @@
             </div>
             <p class="text-cinza-medio max-w-md text-lg">Cálculo do custo e preço final dos produtos</p>
         </div>
-               
         <div class="header-divider"></div>
 
-        <!-- Mensagem de feedback -->
         <div id="messageBox" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-2xl shadow-soft z-50 hidden max-w-sm w-full text-center">
-            <div class="message-icon">
-                <i class="fa-solid fa-check"></i>
-            </div>
+            <div class="message-icon"><i class="fa-solid fa-check"></i></div>
             <div id="messageContent" class="text-cinza-escuro font-medium text-lg"></div>
             <button class="btn-primary w-full mt-6" onclick="hideMessage()">OK</button>
         </div>
 
-        <!-- Seção de Cadastro de Insumos -->
         <div class="card p-6 mb-8">
             <div class="flex items-center gap-3 mb-6">
-                <div class="w-10 h-10 rounded-full bg-rosa-claro flex items-center justify-center">
-                    <i class="fa-solid fa-box text-rosa-destaque"></i>
-                </div>
+                <div class="w-10 h-10 rounded-full bg-rosa-claro flex items-center justify-center"><i class="fa-solid fa-box text-rosa-destaque"></i></div>
                 <h2 class="text-2xl font-bold section-header">Cadastro de Insumos</h2>
             </div>
-            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <div>
                     <label class="block text-sm font-medium text-cinza-medio mb-1">Nome do Insumo</label>
@@ -266,17 +92,12 @@
                     <input type="text" id="insumoUnidade" placeholder="Ex: folha, ml" class="input-field w-full">
                 </div>
             </div>
-            
             <button onclick="adicionarInsumo()" class="btn-primary w-full flex items-center justify-center gap-2">
-                <i class="fa-solid fa-plus"></i>
-                Adicionar Insumo
+                <i class="fa-solid fa-plus"></i> Adicionar Insumo
             </button>
-
             <h3 class="text-xl font-semibold text-cinza-escuro mt-8 mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-clipboard-list text-rosa-destaque"></i>
-                Insumos Cadastrados
+                <i class="fa-solid fa-clipboard-list text-rosa-destaque"></i> Insumos Cadastrados
             </h3>
-            
             <div id="listaInsumos" class="bg-rosa-claro p-4 rounded-xl min-h-[150px]">
                 <div class="flex justify-center py-6">
                     <div class="loading-spinner" id="insumosSpinner"></div>
@@ -285,15 +106,11 @@
             </div>
         </div>
 
-        <!-- Seção de Criação e Precificação de Produtos -->
         <div class="card p-6">
             <div class="flex items-center gap-3 mb-6">
-                <div class="w-10 h-10 rounded-full bg-rosa-claro flex items-center justify-center">
-                    <i class="fa-solid fa-tags text-rosa-destaque"></i>
-                </div>
+                <div class="w-10 h-10 rounded-full bg-rosa-claro flex items-center justify-center"><i class="fa-solid fa-tags text-rosa-destaque"></i></div>
                 <h2 class="text-2xl font-bold section-header">Precificação de Produtos</h2>
             </div>
-            
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div>
                     <label class="block text-sm font-medium text-cinza-medio mb-1">Nome do Produto</label>
@@ -304,31 +121,19 @@
                     <input type="number" id="produtoMargemLucro" placeholder="Ex: 50" min="0" class="input-field w-full">
                 </div>
             </div>
-
             <h3 class="text-xl font-semibold text-cinza-escuro mt-8 mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-list-check text-rosa-destaque"></i>
-                Insumos Utilizados
+                <i class="fa-solid fa-list-check text-rosa-destaque"></i> Insumos Utilizados
             </h3>
-            
-            <div id="insumosProdutoContainer" class="space-y-3 mb-6">
-                <!-- Linhas de insumos do produto serão adicionadas aqui -->
-            </div>
-            
+            <div id="insumosProdutoContainer" class="space-y-3 mb-6"></div>
             <button onclick="adicionarLinhaInsumoProduto()" class="btn-secondary w-full mb-8 flex items-center justify-center gap-2">
-                <i class="fa-solid fa-plus"></i>
-                Adicionar Insumo ao Produto
+                <i class="fa-solid fa-plus"></i> Adicionar Insumo ao Produto
             </button>
-
             <button onclick="calcularPrecoProduto()" class="btn-primary w-full flex items-center justify-center gap-2">
-                <i class="fa-solid fa-calculator"></i>
-                Calcular e Adicionar Produto
+                <i class="fa-solid fa-calculator"></i> Calcular e Adicionar Produto
             </button>
-
             <h3 class="text-xl font-semibold text-cinza-escuro mt-8 mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-boxes-packing text-rosa-destaque"></i>
-                Produtos Precificados
+                <i class="fa-solid fa-boxes-packing text-rosa-destaque"></i> Produtos Precificados
             </h3>
-            
             <div id="listaProdutos" class="space-y-4">
                 <div class="flex justify-center py-6">
                     <div class="loading-spinner" id="produtosSpinner"></div>
@@ -337,12 +142,10 @@
             </div>
         </div>
 
-        <!-- Botão flutuante para limpar dados -->
         <div class="floating-btn" onclick="limparDados()" title="Limpar todos os dados">
             <i class="fa-solid fa-trash"></i>
         </div>
 
-        <!-- Rodapé -->
         <footer class="mt-10 py-6 text-center text-cinza-medio text-sm">
             <p>Copyright 2025 - Carlos Henrique - Eng. Computação Descomplica 2025</p>
             <p class="mt-1">Sistema de Precificação para Artesanato</p>
@@ -350,23 +153,18 @@
     </div>
 
     <script>
-        // Configuração do Supabase - Substitua com suas credenciais
+        // Configuração do Supabase
         const SUPABASE_URL = 'https://qtpitnqfmppfatsfdxlf.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0cGl0bnFmbXBwZmF0c2ZkeGxmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI3NzMzNjIsImV4cCI6MjA2ODM0OTM2Mn0.8xIMCtWG5xpelKGcxps9LtIdPx_rbFckeqQ4y39TcCM';
         
-        // Declaração global do cliente Supabase
         let supabase = null;
-
-        // Array para armazenar insumos e produtos
         let insumos = [];
         let produtos = [];
         
-        // Função para gerar um ID único
         function gerarIdUnico() {
             return '_' + Math.random().toString(36).substr(2, 9);
         }
 
-        // Função para inicializar o Supabase
         function initSupabase() {
             if (!supabase && window.supabase) {
                 supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -374,7 +172,6 @@
             return supabase;
         }
 
-        // Funções para Banco de Dados Supabase
         async function carregarDados() {
             try {
                 initSupabase();
@@ -384,35 +181,24 @@
                 document.getElementById('insumosEmptyMessage').style.display = 'none';
                 document.getElementById('produtosEmptyMessage').style.display = 'none';
                 
-                // Carregar insumos
-                const { data: insumosData, error: insumosError } = await supabase
-                    .from('insumos')
-                    .select('*');
+                const { data: insumosData, error: insumosError } = await supabase.from('insumos').select('*');
+                if (insumosError) throw insumosError;
+                insumos = insumosData || [];
+                renderizarInsumos();
                 
-                if (!insumosError && insumosData) {
-                    insumos = insumosData;
-                    renderizarInsumos();
-                }
+                const { data: produtosData, error: produtosError } = await supabase.from('produtos').select('*');
+                if (produtosError) throw produtosError;
+                produtos = produtosData || [];
+                renderizarProdutos();
                 
-                // Carregar produtos
-                const { data: produtosData, error: produtosError } = await supabase
-                    .from('produtos')
-                    .select('*');
-                
-                if (!produtosError && produtosData) {
-                    produtos = produtosData;
-                    renderizarProdutos();
-                }
-                
-                // Atualiza todos os dropdowns de insumos
                 atualizarDropdownsInsumos();
-                
-                // Adicionar linha de insumo para produto
-                adicionarLinhaInsumoProduto();
+                if (document.getElementById('insumosProdutoContainer').childElementCount === 0) {
+                     adicionarLinhaInsumoProduto();
+                }
                 
             } catch (error) {
                 console.error('Erro ao carregar dados:', error);
-                showMessage('Erro ao carregar dados do servidor.');
+                showMessage(`Erro ao carregar dados do servidor: ${error.message}`);
             } finally {
                 document.getElementById('insumosSpinner').style.display = 'none';
                 document.getElementById('produtosSpinner').style.display = 'none';
@@ -422,18 +208,12 @@
         async function salvarInsumo(insumo) {
             try {
                 initSupabase();
-                
-                const { data, error } = await supabase
-                    .from('insumos')
-                    .upsert([insumo]);
-                
-                if (error) {
-                    throw error;
-                }
+                const { data, error } = await supabase.from('insumos').upsert([insumo]).select();
+                if (error) throw error;
                 return data;
             } catch (error) {
                 console.error('Erro ao salvar insumo:', error);
-                showMessage('Erro ao salvar insumo no banco de dados.');
+                showMessage(`Erro ao salvar insumo: ${error.message}`);
                 return null;
             }
         }
@@ -441,19 +221,12 @@
         async function removerInsumoDB(id) {
             try {
                 initSupabase();
-                
-                const { error } = await supabase
-                    .from('insumos')
-                    .delete()
-                    .eq('id', id);
-                
-                if (error) {
-                    throw error;
-                }
+                const { error } = await supabase.from('insumos').delete().eq('id', id);
+                if (error) throw error;
                 return true;
             } catch (error) {
                 console.error('Erro ao remover insumo:', error);
-                showMessage('Erro ao remover insumo do banco de dados.');
+                showMessage(`Erro ao remover insumo: ${error.message}`);
                 return false;
             }
         }
@@ -461,24 +234,12 @@
         async function salvarProduto(produto) {
             try {
                 initSupabase();
-                
-                // Converter o array de insumos para string JSON
-                const produtoParaSalvar = {
-                    ...produto,
-                    insumosUtilizados: JSON.stringify(produto.insumosUtilizados)
-                };
-                
-                const { data, error } = await supabase
-                    .from('produtos')
-                    .upsert([produtoParaSalvar]);
-                
-                if (error) {
-                    throw error;
-                }
+                const { data, error } = await supabase.from('produtos').upsert([produto]).select();
+                if (error) throw error;
                 return data;
             } catch (error) {
                 console.error('Erro ao salvar produto:', error);
-                showMessage('Erro ao salvar produto no banco de dados.');
+                showMessage(`Erro ao salvar produto: ${error.message}`);
                 return null;
             }
         }
@@ -486,19 +247,12 @@
         async function removerProdutoDB(id) {
             try {
                 initSupabase();
-                
-                const { error } = await supabase
-                    .from('produtos')
-                    .delete()
-                    .eq('id', id);
-                
-                if (error) {
-                    throw error;
-                }
+                const { error } = await supabase.from('produtos').delete().eq('id', id);
+                if (error) throw error;
                 return true;
             } catch (error) {
                 console.error('Erro ao remover produto:', error);
-                showMessage('Erro ao remover produto do banco de dados.');
+                showMessage(`Erro ao remover produto: ${error.message}`);
                 return false;
             }
         }
@@ -506,37 +260,20 @@
         async function limparBancoDeDados() {
             try {
                 initSupabase();
-                
-                // Limpar todos os insumos
-                const { error: insumosError } = await supabase
-                    .from('insumos')
-                    .delete()
-                    .neq('id', '');
-                
-                // Limpar todos os produtos
-                const { error: produtosError } = await supabase
-                    .from('produtos')
-                    .delete()
-                    .neq('id', '');
-                
-                if (insumosError || produtosError) {
-                    throw insumosError || produtosError;
-                }
-                
+                const { error: insumosError } = await supabase.from('insumos').delete().neq('id', 'qualquer-coisa-nao-nula');
+                const { error: produtosError } = await supabase.from('produtos').delete().neq('id', 'qualquer-coisa-nao-nula');
+                if (insumosError || produtosError) throw insumosError || produtosError;
                 return true;
             } catch (error) {
                 console.error('Erro ao limpar banco de dados:', error);
-                showMessage('Erro ao limpar dados do servidor.');
+                showMessage(`Erro ao limpar dados do servidor: ${error.message}`);
                 return false;
             }
         }
 
-        // Função para exibir mensagens
         function showMessage(message) {
             document.getElementById('messageContent').innerHTML = message;
             document.getElementById('messageBox').style.display = 'block';
-            
-            // Adiciona fundo escurecido
             const overlay = document.createElement('div');
             overlay.id = 'messageOverlay';
             overlay.className = 'fixed inset-0 bg-black bg-opacity-30 z-40';
@@ -549,17 +286,12 @@
             if (overlay) overlay.remove();
         }
 
-        // Função para limpar todos os dados
         async function limparDados() {
             if (confirm('Tem certeza que deseja limpar todos os dados? Esta ação não pode ser desfeita.')) {
-                // Limpa localmente
-                insumos = [];
-                produtos = [];
-                
-                // Limpa o banco de dados
                 const sucesso = await limparBancoDeDados();
-                
                 if (sucesso) {
+                    insumos = [];
+                    produtos = [];
                     renderizarInsumos();
                     renderizarProdutos();
                     document.getElementById('insumosProdutoContainer').innerHTML = '';
@@ -569,62 +301,41 @@
             }
         }
 
-        // Função para atualizar todos os dropdowns de insumos
         function atualizarDropdownsInsumos() {
             const dropdowns = document.querySelectorAll('#insumosProdutoContainer select');
-            
             dropdowns.forEach(dropdown => {
                 const valorAtual = dropdown.value;
-                
-                // Limpa e recria as opções
                 dropdown.innerHTML = '<option value="">Selecione um Insumo</option>';
-                
                 insumos.forEach(insumo => {
                     const option = document.createElement('option');
                     option.value = insumo.id;
                     option.textContent = `${insumo.nome} (R$ ${insumo.custo.toFixed(2)}/${insumo.unidade})`;
                     dropdown.appendChild(option);
                 });
-                
-                // Restaura a seleção anterior se ainda existir
                 if (insumos.some(i => i.id === valorAtual)) {
                     dropdown.value = valorAtual;
                 }
             });
         }
 
-        // Funções para insumos
         async function adicionarInsumo() {
             const nome = document.getElementById('insumoNome').value.trim();
             const custo = parseFloat(document.getElementById('insumoCusto').value);
             const unidade = document.getElementById('insumoUnidade').value.trim();
 
             if (!nome || isNaN(custo) || custo <= 0 || !unidade) {
-                showMessage('Por favor, preencha todos os campos corretamente.');
+                showMessage('Por favor, preencha todos os campos do insumo corretamente.');
                 return;
             }
 
-            const novoInsumo = {
-                id: gerarIdUnico(),
-                nome: nome,
-                custo: custo,
-                unidade: unidade
-            };
-
-            // Salva no Supabase
+            const novoInsumo = { id: gerarIdUnico(), nome, custo, unidade };
             const resultado = await salvarInsumo(novoInsumo);
             
-            if (resultado) {
-                // Atualiza localmente
-                insumos.push(novoInsumo);
+            if (resultado && resultado.length > 0) {
+                insumos.push(resultado[0]);
                 renderizarInsumos();
-                
-                // Atualiza todos os dropdowns de insumos
                 atualizarDropdownsInsumos();
-                
                 showMessage(`Insumo <span class="font-bold text-rosa-destaque">${nome}</span> adicionado com sucesso!`);
-
-                // Limpa os campos
                 document.getElementById('insumoNome').value = '';
                 document.getElementById('insumoCusto').value = '';
                 document.getElementById('insumoUnidade').value = '';
@@ -634,11 +345,13 @@
         function renderizarInsumos() {
             const listaInsumosDiv = document.getElementById('listaInsumos');
             listaInsumosDiv.innerHTML = '';
+            const emptyMessage = document.getElementById('insumosEmptyMessage');
 
             if (insumos.length === 0) {
-                document.getElementById('insumosEmptyMessage').style.display = 'block';
+                if (emptyMessage) emptyMessage.style.display = 'block';
                 return;
             }
+            if (emptyMessage) emptyMessage.style.display = 'none';
 
             const ul = document.createElement('div');
             ul.classList.add('space-y-3');
@@ -660,105 +373,89 @@
                 `;
                 ul.appendChild(div);
             });
-            
             listaInsumosDiv.appendChild(ul);
-            document.getElementById('insumosEmptyMessage').style.display = 'none';
         }
 
         async function removerInsumo(id) {
-            // Remove do Supabase
             const sucesso = await removerInsumoDB(id);
-            
             if (sucesso) {
-                // Remove localmente
                 insumos = insumos.filter(insumo => insumo.id !== id);
                 renderizarInsumos();
-                
-                // Atualiza todos os dropdowns de insumos
                 atualizarDropdownsInsumos();
-                
                 showMessage('Insumo removido com sucesso.');
             }
         }
 
-        // Funções para produtos
         function adicionarLinhaInsumoProduto() {
             const container = document.getElementById('insumosProdutoContainer');
-            
             const div = document.createElement('div');
             div.classList.add('flex', 'flex-col', 'md:flex-row', 'gap-3', 'items-center', 'p-3', 'bg-rosa-claro', 'rounded-xl', 'fade-in');
 
-            // Dropdown de insumos
-            const selectDiv = document.createElement('div');
-            selectDiv.classList.add('flex-grow', 'w-full', 'md:w-auto');
             const select = document.createElement('select');
-            select.classList.add('input-field', 'w-full');
+            select.classList.add('input-field', 'w-full', 'flex-grow');
             select.innerHTML = '<option value="">Selecione um Insumo</option>';
-            
-            // Usa a lista atual de insumos
             insumos.forEach(insumo => {
                 const option = document.createElement('option');
                 option.value = insumo.id;
                 option.textContent = `${insumo.nome} (R$ ${insumo.custo.toFixed(2)}/${insumo.unidade})`;
                 select.appendChild(option);
             });
-            
-            selectDiv.appendChild(select);
 
-            // Input de quantidade
-            const quantidadeDiv = document.createElement('div');
-            quantidadeDiv.classList.add('w-full', 'md:w-32');
             const quantidadeInput = document.createElement('input');
             quantidadeInput.type = 'number';
-            quantidadeInput.placeholder = 'Quantidade';
+            quantidadeInput.placeholder = 'Qtd.';
             quantidadeInput.min = '1';
             quantidadeInput.value = '1';
-            quantidadeInput.classList.add('input-field', 'w-full');
-            quantidadeDiv.appendChild(quantidadeInput);
+            quantidadeInput.classList.add('input-field', 'w-full', 'md:w-24');
 
-            // Botão de remover linha
             const removeBtn = document.createElement('button');
             removeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
             removeBtn.classList.add('p-2', 'rounded-lg', 'text-rosa-destaque', 'hover:bg-rosa-medio');
             removeBtn.onclick = () => container.removeChild(div);
 
-            div.appendChild(selectDiv);
-            div.appendChild(quantidadeDiv);
+            div.appendChild(select);
+            div.appendChild(quantidadeInput);
             div.appendChild(removeBtn);
             container.appendChild(div);
         }
 
         async function calcularPrecoProduto() {
-            const nomeProduto = document.getElementById('produtoNome').value.trim();
-            const margemLucro = parseFloat(document.getElementById('produtoMargemLucro').value);
-            const insumosProdutoElements = document.querySelectorAll('#insumosProdutoContainer > div');
-
-            if (!nomeProduto || isNaN(margemLucro) || margemLucro < 0) {
-                showMessage('Por favor, preencha o nome e a margem de lucro corretamente.');
-                return;
-            }
-
-            if (insumosProdutoElements.length === 0) {
-                showMessage('Adicione pelo menos um insumo ao produto.');
-                return;
-            }
-
-            let custoTotalProduto = 0;
-            const insumosUtilizadosNoProduto = [];
-            let hasError = false;
-
-            for (const element of insumosProdutoElements) {
-                const insumoId = element.querySelector('select').value;
-                const quantidade = parseFloat(element.querySelector('input[type="number"]').value);
-
-                if (!insumoId || isNaN(quantidade) || quantidade <= 0) {
-                    showMessage('Por favor, selecione um insumo e insira uma quantidade válida.');
-                    hasError = true;
-                    break;
+            try {
+                const nomeProduto = document.getElementById('produtoNome').value.trim();
+                const margemLucroInput = document.getElementById('produtoMargemLucro').value;
+                const margemLucro = parseFloat(margemLucroInput);
+                
+                if (!nomeProduto) {
+                    showMessage('Por favor, preencha o nome do produto.');
+                    return;
+                }
+                if (isNaN(margemLucro) || margemLucro < 0) {
+                     showMessage('Por favor, insira uma margem de lucro válida (número igual ou maior que zero).');
+                    return;
                 }
 
-                const insumoEncontrado = insumos.find(i => i.id === insumoId);
-                if (insumoEncontrado) {
+                const insumosProdutoElements = document.querySelectorAll('#insumosProdutoContainer > div');
+                if (insumosProdutoElements.length === 0) {
+                    showMessage('Adicione pelo menos um insumo ao produto.');
+                    return;
+                }
+
+                let custoTotalProduto = 0;
+                const insumosUtilizadosNoProduto = [];
+
+                for (const element of insumosProdutoElements) {
+                    const insumoId = element.querySelector('select').value;
+                    const quantidade = parseFloat(element.querySelector('input[type="number"]').value);
+
+                    if (!insumoId || isNaN(quantidade) || quantidade <= 0) {
+                        throw new Error('Verifique se todos os insumos foram selecionados e se as quantidades são válidas.');
+                    }
+
+                    const insumoEncontrado = insumos.find(i => i.id === insumoId);
+                    if (!insumoEncontrado) {
+                        throw new Error(`O insumo com ID ${insumoId} não foi encontrado. Tente atualizar a página.`);
+                    }
+
                     custoTotalProduto += insumoEncontrado.custo * quantidade;
                     insumosUtilizadosNoProduto.push({
                         insumoId: insumoId,
@@ -767,81 +464,85 @@
                         custoUnitario: insumoEncontrado.custo,
                         unidade: insumoEncontrado.unidade
                     });
-                } else {
-                    showMessage(`Insumo não encontrado. Atualize a página e tente novamente.`);
-                    hasError = true;
-                    break;
                 }
-            }
 
-            if (hasError) return;
-
-            const precoVenda = custoTotalProduto * (1 + (margemLucro / 100));
-
-            const novoProduto = {
-                id: gerarIdUnico(),
-                nome: nomeProduto,
-                custoTotal: custoTotalProduto,
-                margemLucro: margemLucro,
-                precoFinal: precoVenda,
-                insumosUtilizados: insumosUtilizadosNoProduto
-            };
-
-            // Salva no Supabase
-            const resultado = await salvarProduto(novoProduto);
-            
-            if (resultado) {
-                // Atualiza localmente
-                produtos.push(novoProduto);
-                renderizarProdutos();
+                const precoVenda = custoTotalProduto * (1 + (margemLucro / 100));
                 
-                showMessage(`
-                    <div class="mb-3">
-                        <p>Produto <span class="font-bold text-rosa-destaque">"${nomeProduto}"</span></p>
-                        <p>adicionado com sucesso!</p>
-                    </div>
-                    <p class="text-lg">Preço de Venda: <span class="font-bold text-rosa-destaque text-xl">R$ ${precoVenda.toFixed(2)}</span></p>
-                `);
+                // *** CORREÇÃO APLICADA AQUI ***
+                // Usando snake_case para combinar com as colunas do banco de dados
+                const novoProduto = {
+                    id: gerarIdUnico(),
+                    nome: nomeProduto,
+                    custo_total: custoTotalProduto,
+                    margem_lucro: margemLucro,
+                    preco_final: precoVenda,
+                    insumos_utilizados: JSON.stringify(insumosUtilizadosNoProduto)
+                };
+                
+                // A função salvarProduto agora recebe o objeto já pronto
+                const resultado = await salvarProduto(novoProduto);
+                
+                if (resultado && resultado.length > 0) {
+                    const produtoSalvo = resultado[0];
+                    produtos.push(produtoSalvo);
+                    renderizarProdutos();
+                    
+                    showMessage(`
+                        <div class="mb-3">
+                            <p>Produto <span class="font-bold text-rosa-destaque">"${nomeProduto}"</span> adicionado!</p>
+                        </div>
+                        <p class="text-lg">Preço de Venda: <span class="font-bold text-rosa-destaque text-xl">R$ ${precoVenda.toFixed(2)}</span></p>
+                    `);
 
-                // Limpa os campos
-                document.getElementById('produtoNome').value = '';
-                document.getElementById('produtoMargemLucro').value = '';
-                document.getElementById('insumosProdutoContainer').innerHTML = '';
-                adicionarLinhaInsumoProduto();
+                    document.getElementById('produtoNome').value = '';
+                    document.getElementById('produtoMargemLucro').value = '';
+                    document.getElementById('insumosProdutoContainer').innerHTML = '';
+                    adicionarLinhaInsumoProduto();
+                }
+            } catch (error) {
+                console.error("Erro ao calcular preço do produto:", error);
+                showMessage(`Ocorreu um erro: ${error.message}`);
             }
         }
 
         function renderizarProdutos() {
             const listaProdutosDiv = document.getElementById('listaProdutos');
             listaProdutosDiv.innerHTML = '';
+            const emptyMessage = document.getElementById('produtosEmptyMessage');
 
             if (produtos.length === 0) {
-                document.getElementById('produtosEmptyMessage').style.display = 'block';
+                if(emptyMessage) emptyMessage.style.display = 'block';
                 return;
             }
+            if(emptyMessage) emptyMessage.style.display = 'none';
 
             const div = document.createElement('div');
             div.classList.add('space-y-6');
             
             produtos.forEach(produto => {
-                // Convertendo insumosUtilizados de volta para array se necessário
-                let insumosUtilizados = produto.insumosUtilizados;
+                let insumosUtilizados = produto.insumos_utilizados; // *** CORREÇÃO APLICADA AQUI ***
                 if (typeof insumosUtilizados === 'string') {
-                    insumosUtilizados = JSON.parse(insumosUtilizados);
+                    try {
+                        insumosUtilizados = JSON.parse(insumosUtilizados);
+                    } catch(e) {
+                        console.error("Erro ao parsear insumos_utilizados: ", e);
+                        insumosUtilizados = [];
+                    }
                 }
                 
                 const produtoDiv = document.createElement('div');
                 produtoDiv.classList.add('produto-item', 'bg-white', 'p-5', 'rounded-xl', 'shadow-sm', 'fade-in');
+                // *** CORREÇÃO APLICADA AQUI (várias vezes) ***
                 produtoDiv.innerHTML = `
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <h3 class="text-xl font-bold text-cinza-escuro">${produto.nome}</h3>
-                            <div class="flex gap-3 mt-2">
+                            <div class="flex gap-3 mt-2 flex-wrap">
                                 <div class="text-sm bg-rosa-claro px-3 py-1 rounded-full text-rosa-destaque font-medium">
-                                    <i class="fa-solid fa-money-bill-wave mr-1"></i> Custo: R$ ${produto.custoTotal.toFixed(2)}
+                                    <i class="fa-solid fa-money-bill-wave mr-1"></i> Custo: R$ ${produto.custo_total.toFixed(2)}
                                 </div>
                                 <div class="text-sm bg-verde-suave px-3 py-1 rounded-full text-gray-700 font-medium">
-                                    <i class="fa-solid fa-chart-line mr-1"></i> Margem: ${produto.margemLucro}%
+                                    <i class="fa-solid fa-chart-line mr-1"></i> Margem: ${produto.margem_lucro}%
                                 </div>
                             </div>
                         </div>
@@ -853,7 +554,7 @@
                     <div class="flex items-end justify-between mt-4">
                         <div>
                             <p class="text-sm font-medium text-cinza-medio mb-1">Preço de Venda:</p>
-                            <p class="text-2xl font-bold preco-destaque">R$ ${produto.precoFinal.toFixed(2)}</p>
+                            <p class="text-2xl font-bold preco-destaque">R$ ${produto.preco_final.toFixed(2)}</p>
                         </div>
                         <div class="text-rosa-destaque text-4xl">
                             <i class="fa-solid fa-tag"></i>
@@ -862,11 +563,10 @@
                     
                     <div class="mt-5 pt-4 border-t border-rosa-claro">
                         <h4 class="text-sm font-semibold text-cinza-medio mb-2 flex items-center gap-2">
-                            <i class="fa-solid fa-box"></i>
-                            INSUMOS UTILIZADOS:
+                            <i class="fa-solid fa-box"></i> INSUMOS UTILIZADOS:
                         </h4>
                         <ul class="space-y-2">
-                            ${insumosUtilizados.map(item => `
+                            ${(insumosUtilizados || []).map(item => `
                                 <li class="flex justify-between text-sm">
                                     <span>${item.nome}</span>
                                     <span>${item.quantidade} ${item.unidade} × R$ ${item.custoUnitario.toFixed(2)}</span>
@@ -877,29 +577,20 @@
                 `;
                 div.appendChild(produtoDiv);
             });
-            
             listaProdutosDiv.appendChild(div);
-            document.getElementById('produtosEmptyMessage').style.display = 'none';
         }
 
         async function removerProduto(id) {
-            // Remove do Supabase
             const sucesso = await removerProdutoDB(id);
-            
             if (sucesso) {
-                // Remove localmente
                 produtos = produtos.filter(produto => produto.id !== id);
                 renderizarProdutos();
                 showMessage('Produto removido com sucesso.');
             }
         }
 
-        // Inicialização
         window.onload = function() {
-            // Inicializa o Supabase
             initSupabase();
-            
-            // Carrega os dados do Supabase
             carregarDados();
         };
     </script>
