@@ -456,16 +456,13 @@
             select.classList.add('input-field', 'w-full');
             select.innerHTML = '<option value="">Selecione um Insumo</option>';
             
-            if (insumos.length === 0) {
-                select.innerHTML = '<option value="">Nenhum insumo cadastrado</option>';
-            } else {
-                insumos.forEach(insumo => {
-                    const option = document.createElement('option');
-                    option.value = insumo.id;
-                    option.textContent = `${insumo.nome} (R$ ${insumo.custo.toFixed(2)}/${insumo.unidade})`;
-                    select.appendChild(option);
-                });
-            }
+            // CORREÇÃO: Garante que insumos estejam disponíveis
+            insumos.forEach(insumo => {
+                const option = document.createElement('option');
+                option.value = insumo.id;
+                option.textContent = `${insumo.nome} (R$ ${insumo.custo.toFixed(2)}/${insumo.unidade})`;
+                select.appendChild(option);
+            });
             
             selectDiv.appendChild(select);
 
@@ -641,14 +638,12 @@
             showMessage('Produto removido com sucesso.');
         }
 
-        // Inicialização
+        // Inicialização - CORREÇÃO: Ordem correta de carregamento
         window.onload = function() {
+            // 1. Carregar dados do localStorage
             carregarDados();
-            renderizarInsumos();
-            renderizarProdutos();
-            adicionarLinhaInsumoProduto();
             
-            // Adiciona alguns insumos de exemplo se estiver vazio
+            // 2. Adicionar insumos de exemplo se necessário
             if (insumos.length === 0) {
                 insumos.push({
                     id: gerarIdUnico(),
@@ -670,8 +665,16 @@
                 });
                 
                 salvarDados();
-                renderizarInsumos();
             }
+            
+            // 3. Renderizar insumos
+            renderizarInsumos();
+            
+            // 4. Renderizar produtos
+            renderizarProdutos();
+            
+            // 5. Adicionar linha de insumo para produto
+            adicionarLinhaInsumoProduto();
         };
     </script>
 </body>
