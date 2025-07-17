@@ -184,6 +184,20 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        
+        .highlight-box {
+            border: 2px solid #FF6B9C;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            background: rgba(255, 214, 228, 0.2);
+        }
+        
+        .solution-title {
+            color: #FF6B9C;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -201,6 +215,7 @@
             </div>
             <p class="text-cinza-medio max-w-md text-lg">Calcule o custo e precifique seus produtos artesanais</p>
         </div>
+               
         <div class="header-divider"></div>
 
         <!-- Mensagem de feedback -->
@@ -373,6 +388,30 @@
             }
         }
 
+        // Função para atualizar todos os dropdowns de insumos
+        function atualizarDropdownsInsumos() {
+            const dropdowns = document.querySelectorAll('#insumosProdutoContainer select');
+            
+            dropdowns.forEach(dropdown => {
+                const valorAtual = dropdown.value;
+                
+                // Limpa e recria as opções
+                dropdown.innerHTML = '<option value="">Selecione um Insumo</option>';
+                
+                insumos.forEach(insumo => {
+                    const option = document.createElement('option');
+                    option.value = insumo.id;
+                    option.textContent = `${insumo.nome} (R$ ${insumo.custo.toFixed(2)}/${insumo.unidade})`;
+                    dropdown.appendChild(option);
+                });
+                
+                // Restaura a seleção anterior se ainda existir
+                if (insumos.some(i => i.id === valorAtual)) {
+                    dropdown.value = valorAtual;
+                }
+            });
+        }
+
         // Funções para insumos
         function adicionarInsumo() {
             const nome = document.getElementById('insumoNome').value.trim();
@@ -394,6 +433,10 @@
             insumos.push(novoInsumo);
             salvarDados();
             renderizarInsumos();
+            
+            // Atualiza todos os dropdowns de insumos
+            atualizarDropdownsInsumos();
+            
             showMessage(`Insumo <span class="font-bold text-rosa-destaque">${nome}</span> adicionado com sucesso!`);
 
             // Limpa os campos
@@ -439,6 +482,10 @@
             insumos = insumos.filter(insumo => insumo.id !== id);
             salvarDados();
             renderizarInsumos();
+            
+            // Atualiza todos os dropdowns de insumos
+            atualizarDropdownsInsumos();
+            
             showMessage('Insumo removido com sucesso.');
         }
 
@@ -456,7 +503,7 @@
             select.classList.add('input-field', 'w-full');
             select.innerHTML = '<option value="">Selecione um Insumo</option>';
             
-            // CORREÇÃO: Garante que insumos estejam disponíveis
+            // Usa a lista atual de insumos
             insumos.forEach(insumo => {
                 const option = document.createElement('option');
                 option.value = insumo.id;
@@ -638,7 +685,7 @@
             showMessage('Produto removido com sucesso.');
         }
 
-        // Inicialização - CORREÇÃO: Ordem correta de carregamento
+        // Inicialização
         window.onload = function() {
             // 1. Carregar dados do localStorage
             carregarDados();
