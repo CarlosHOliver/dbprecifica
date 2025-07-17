@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dobradura Artes - Sistema de Precificação</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Sistema de Precificação - Dobradura Artes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -36,86 +35,77 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         
+        * {
+            transition: all 0.3s ease;
+        }
+        
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #FFF0F5 0%, #FFEAF1 100%);
             min-height: 100vh;
+            padding: 20px;
         }
+        
         .card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 1.5rem;
             box-shadow: 0 8px 32px rgba(255, 155, 200, 0.15);
             border: 1px solid rgba(255, 209, 220, 0.4);
-            transition: all 0.3s ease;
         }
-        .card:hover {
-            box-shadow: 0 12px 40px rgba(255, 155, 200, 0.2);
-        }
+        
         .btn-primary {
             background: linear-gradient(to right, #FF9EC0, #FF6B9C);
             color: white;
             font-weight: 600;
             padding: 0.8rem 1.5rem;
             border-radius: 0.75rem;
-            transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(255, 107, 156, 0.25);
             border: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
+        
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(255, 107, 156, 0.35);
             background: linear-gradient(to right, #FF8AB2, #FF5A8F);
         }
+        
         .btn-secondary {
             background: #FFD1DC;
             color: #5D5D5D;
             font-weight: 600;
             padding: 0.8rem 1.5rem;
             border-radius: 0.75rem;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
+        
         .btn-secondary:hover {
             background: #FFB8CA;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(255, 180, 202, 0.25);
         }
+        
         .input-field {
             padding: 0.9rem 1.2rem;
             border: 2px solid #FFD1DC;
             border-radius: 0.75rem;
             background: rgba(255, 255, 255, 0.7);
-            transition: all 0.3s ease;
-            font-size: 1rem;
         }
+        
         .input-field:focus {
             outline: none;
             border-color: #FF9EC0;
             box-shadow: 0 0 0 3px rgba(255, 158, 192, 0.25);
         }
+        
         .insumo-item, .produto-item {
-            transition: all 0.3s ease;
             border-left: 4px solid #FFD1DC;
         }
+        
         .insumo-item:hover, .produto-item:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(255, 180, 202, 0.15);
         }
-        .badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
+        
         .preco-destaque {
             background: linear-gradient(135deg, #FF6B9C, #FF9EC0);
             -webkit-background-clip: text;
@@ -123,6 +113,7 @@
             font-weight: 700;
             font-size: 1.5rem;
         }
+        
         .floating-btn {
             position: fixed;
             bottom: 2rem;
@@ -138,18 +129,13 @@
             box-shadow: 0 6px 20px rgba(255, 107, 156, 0.4);
             font-size: 1.5rem;
             z-index: 50;
-            transition: all 0.3s ease;
-            cursor: pointer;
         }
+        
         .floating-btn:hover {
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 10px 25px rgba(255, 107, 156, 0.5);
         }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
+        
         .logo-icon {
             width: 60px;
             height: 60px;
@@ -162,18 +148,21 @@
             font-size: 1.8rem;
             box-shadow: 0 4px 12px rgba(255, 107, 156, 0.3);
         }
+        
         .header-divider {
             height: 3px;
             background: linear-gradient(to right, transparent, #FFD1DC, #FF9EC0, #FFD1DC, transparent);
             margin: 1.5rem 0;
             border-radius: 50%;
         }
+        
         .section-header {
             background: linear-gradient(to right, #FFD1DC, #FF9EC0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 700;
         }
+        
         .message-icon {
             width: 70px;
             height: 70px;
@@ -186,31 +175,40 @@
             color: white;
             font-size: 2rem;
         }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body class="p-4 md:p-8">
     <div class="max-w-4xl mx-auto">
         <!-- Cabeçalho -->
         <div class="flex flex-col items-center mb-8 text-center">
-            <div class="logo mb-4">
+            <div class="flex items-center gap-4 mb-4">
                 <div class="logo-icon">
-                    <i class="fa-solid fa-paper-plane"></i>
+                    <i class="fa-solid fa-calculator"></i>
                 </div>
                 <div>
-                    <h1 class="text-3xl font-bold text-cinza-escuro">Dobradura Artes</h1>
-                    <h3 class="text-rosa-destaque font-medium mt-1">Bianca Campanari</h3>
+                    <h1 class="text-3xl font-bold text-cinza-escuro">Sistema de Precificação</h1>
+                    <h3 class="text-rosa-destaque font-medium mt-1">Dobradura Artes</h3>
                 </div>
             </div>
-            <p class="text-cinza-medio max-w-md text-lg">Sistema para cálculo preciso de custos e precificação de produtos artesanais</p>
+            <p class="text-cinza-medio max-w-md text-lg">Calcule o custo e precifique seus produtos artesanais</p>
         </div>
         <div class="header-divider"></div>
 
         <!-- Mensagem de feedback -->
         <div id="messageBox" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-2xl shadow-soft z-50 hidden max-w-sm w-full text-center">
             <div class="message-icon">
-                <i class="fa-solid fa-paper-plane"></i>
+                <i class="fa-solid fa-check"></i>
             </div>
-            <p id="messageText" class="text-cinza-escuro font-medium text-lg"></p>
+            <div id="messageContent" class="text-cinza-escuro font-medium text-lg"></div>
             <button class="btn-primary w-full mt-6" onclick="hideMessage()">OK</button>
         </div>
 
@@ -238,7 +236,7 @@
                 </div>
             </div>
             
-            <button onclick="adicionarInsumo()" class="btn-primary w-full">
+            <button onclick="adicionarInsumo()" class="btn-primary w-full flex items-center justify-center gap-2">
                 <i class="fa-solid fa-plus"></i>
                 Adicionar Insumo
             </button>
@@ -257,15 +255,15 @@
         <div class="card p-6">
             <div class="flex items-center gap-3 mb-6">
                 <div class="w-10 h-10 rounded-full bg-rosa-claro flex items-center justify-center">
-                    <i class="fa-solid fa-calculator text-rosa-destaque"></i>
+                    <i class="fa-solid fa-tags text-rosa-destaque"></i>
                 </div>
-                <h2 class="text-2xl font-bold section-header">Criação e Precificação de Produtos</h2>
+                <h2 class="text-2xl font-bold section-header">Precificação de Produtos</h2>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div>
                     <label class="block text-sm font-medium text-cinza-medio mb-1">Nome do Produto</label>
-                    <input type="text" id="produtoNome" placeholder="Ex: Caderneta de Saúde" class="input-field w-full">
+                    <input type="text" id="produtoNome" placeholder="Ex: Caneca Personalizada" class="input-field w-full">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-cinza-medio mb-1">Margem de Lucro (%)</label>
@@ -275,36 +273,36 @@
 
             <h3 class="text-xl font-semibold text-cinza-escuro mt-8 mb-4 flex items-center gap-2">
                 <i class="fa-solid fa-list-check text-rosa-destaque"></i>
-                Insumos para o Produto
+                Insumos Utilizados
             </h3>
             
             <div id="insumosProdutoContainer" class="space-y-3 mb-6">
                 <!-- Linhas de insumos do produto serão adicionadas aqui -->
             </div>
             
-            <button onclick="adicionarLinhaInsumoProduto()" class="btn-secondary w-full mb-8">
+            <button onclick="adicionarLinhaInsumoProduto()" class="btn-secondary w-full mb-8 flex items-center justify-center gap-2">
                 <i class="fa-solid fa-plus"></i>
                 Adicionar Insumo ao Produto
             </button>
 
-            <button onclick="calcularPrecoProduto()" class="btn-primary w-full">
+            <button onclick="calcularPrecoProduto()" class="btn-primary w-full flex items-center justify-center gap-2">
                 <i class="fa-solid fa-calculator"></i>
                 Calcular e Adicionar Produto
             </button>
 
             <h3 class="text-xl font-semibold text-cinza-escuro mt-8 mb-4 flex items-center gap-2">
                 <i class="fa-solid fa-boxes-packing text-rosa-destaque"></i>
-                Produtos Cadastrados
+                Produtos Precificados
             </h3>
             
             <div id="listaProdutos" class="space-y-4">
-                <p class="text-cinza-medio italic text-center py-8">Nenhum produto cadastrado ainda.</p>
+                <p class="text-cinza-medio italic text-center py-8">Nenhum produto precificado ainda.</p>
             </div>
         </div>
 
-        <!-- Botão flutuante para ajuda -->
-        <div class="floating-btn" onclick="showMessage('Precisa de ajuda? Entre em contato com suporte@dobraduraartes.com')">
-            <i class="fa-solid fa-question"></i>
+        <!-- Botão flutuante para limpar dados -->
+        <div class="floating-btn" onclick="limparDados()" title="Limpar todos os dados">
+            <i class="fa-solid fa-trash"></i>
         </div>
 
         <!-- Rodapé -->
@@ -315,19 +313,37 @@
     </div>
 
     <script>
-        // Array para simular o banco de dados de insumos
+        // Array para armazenar insumos e produtos
         let insumos = [];
-        // Array para simular o banco de dados de produtos
         let produtos = [];
 
-        // Função para gerar um ID único simples (para protótipo)
+        // Função para gerar um ID único
         function gerarIdUnico() {
             return '_' + Math.random().toString(36).substr(2, 9);
         }
 
-        // Função para exibir mensagem personalizada (substitui alert)
+        // Funções para LocalStorage
+        function salvarDados() {
+            localStorage.setItem('insumos', JSON.stringify(insumos));
+            localStorage.setItem('produtos', JSON.stringify(produtos));
+        }
+
+        function carregarDados() {
+            const savedInsumos = localStorage.getItem('insumos');
+            const savedProdutos = localStorage.getItem('produtos');
+            
+            if (savedInsumos) {
+                insumos = JSON.parse(savedInsumos);
+            }
+            
+            if (savedProdutos) {
+                produtos = JSON.parse(savedProdutos);
+            }
+        }
+
+        // Função para exibir mensagens
         function showMessage(message) {
-            document.getElementById('messageText').innerText = message;
+            document.getElementById('messageContent').innerHTML = message;
             document.getElementById('messageBox').style.display = 'block';
             
             // Adiciona fundo escurecido
@@ -337,23 +353,34 @@
             document.body.appendChild(overlay);
         }
 
-        // Função para esconder mensagem personalizada
         function hideMessage() {
             document.getElementById('messageBox').style.display = 'none';
             const overlay = document.getElementById('messageOverlay');
             if (overlay) overlay.remove();
         }
 
-        // --- Funções de Insumos ---
+        // Função para limpar todos os dados
+        function limparDados() {
+            if (confirm('Tem certeza que deseja limpar todos os dados? Esta ação não pode ser desfeita.')) {
+                localStorage.clear();
+                insumos = [];
+                produtos = [];
+                renderizarInsumos();
+                renderizarProdutos();
+                document.getElementById('insumosProdutoContainer').innerHTML = '';
+                adicionarLinhaInsumoProduto();
+                showMessage('Todos os dados foram removidos com sucesso!');
+            }
+        }
 
-        // Adiciona um novo insumo ao "banco de dados" temporário
+        // Funções para insumos
         function adicionarInsumo() {
             const nome = document.getElementById('insumoNome').value.trim();
             const custo = parseFloat(document.getElementById('insumoCusto').value);
             const unidade = document.getElementById('insumoUnidade').value.trim();
 
             if (!nome || isNaN(custo) || custo <= 0 || !unidade) {
-                showMessage('Por favor, preencha todos os campos do insumo corretamente (Custo deve ser um número positivo).');
+                showMessage('Por favor, preencha todos os campos corretamente.');
                 return;
             }
 
@@ -365,19 +392,19 @@
             };
 
             insumos.push(novoInsumo);
+            salvarDados();
             renderizarInsumos();
-            showMessage(`Insumo "${nome}" adicionado com sucesso!`);
+            showMessage(`Insumo <span class="font-bold text-rosa-destaque">${nome}</span> adicionado com sucesso!`);
 
-            // Limpa os campos do formulário
+            // Limpa os campos
             document.getElementById('insumoNome').value = '';
             document.getElementById('insumoCusto').value = '';
             document.getElementById('insumoUnidade').value = '';
         }
 
-        // Renderiza a lista de insumos na UI
         function renderizarInsumos() {
             const listaInsumosDiv = document.getElementById('listaInsumos');
-            listaInsumosDiv.innerHTML = ''; // Limpa a lista existente
+            listaInsumosDiv.innerHTML = '';
 
             if (insumos.length === 0) {
                 listaInsumosDiv.innerHTML = '<p class="text-cinza-medio italic text-center py-8">Nenhum insumo cadastrado ainda.</p>';
@@ -386,9 +413,10 @@
 
             const ul = document.createElement('div');
             ul.classList.add('space-y-3');
+            
             insumos.forEach(insumo => {
                 const div = document.createElement('div');
-                div.classList.add('insumo-item', 'bg-white', 'p-4', 'rounded-lg', 'shadow-sm', 'flex', 'justify-between', 'items-center');
+                div.classList.add('insumo-item', 'bg-white', 'p-4', 'rounded-lg', 'shadow-sm', 'flex', 'justify-between', 'items-center', 'fade-in');
                 div.innerHTML = `
                     <div>
                         <span class="font-medium text-cinza-escuro">${insumo.nome}</span>
@@ -397,36 +425,29 @@
                             <span class="text-sm text-cinza-medio">/ ${insumo.unidade}</span>
                         </div>
                     </div>
-                    <button onclick="removerInsumo('${insumo.id}')" class="text-rosa-destaque hover:text-rosa-escuro p-2 rounded-full hover:bg-rosa-claro transition-colors">
+                    <button onclick="removerInsumo('${insumo.id}')" class="text-rosa-destaque hover:text-rosa-escuro p-2 rounded-full hover:bg-rosa-claro">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 `;
                 ul.appendChild(div);
             });
+            
             listaInsumosDiv.appendChild(ul);
         }
 
-        // Remove um insumo do "banco de dados"
         function removerInsumo(id) {
             insumos = insumos.filter(insumo => insumo.id !== id);
+            salvarDados();
             renderizarInsumos();
             showMessage('Insumo removido com sucesso.');
         }
 
-        // --- Funções de Produtos ---
-
-        // Adiciona uma nova linha para seleção de insumos ao criar um produto
+        // Funções para produtos
         function adicionarLinhaInsumoProduto() {
             const container = document.getElementById('insumosProdutoContainer');
-            const insumosDisponiveis = insumos; // Pega os insumos atualmente cadastrados
-
-            if (insumosDisponiveis.length === 0) {
-                showMessage('Por favor, cadastre insumos primeiro para poder adicioná-los aos produtos.');
-                return;
-            }
-
+            
             const div = document.createElement('div');
-            div.classList.add('flex', 'flex-col', 'md:flex-row', 'gap-3', 'items-center', 'p-3', 'bg-rosa-claro', 'rounded-xl');
+            div.classList.add('flex', 'flex-col', 'md:flex-row', 'gap-3', 'items-center', 'p-3', 'bg-rosa-claro', 'rounded-xl', 'fade-in');
 
             // Dropdown de insumos
             const selectDiv = document.createElement('div');
@@ -434,12 +455,18 @@
             const select = document.createElement('select');
             select.classList.add('input-field', 'w-full');
             select.innerHTML = '<option value="">Selecione um Insumo</option>';
-            insumosDisponiveis.forEach(insumo => {
-                const option = document.createElement('option');
-                option.value = insumo.id;
-                option.textContent = `${insumo.nome} (R$ ${insumo.custo.toFixed(2)}/${insumo.unidade})`;
-                select.appendChild(option);
-            });
+            
+            if (insumos.length === 0) {
+                select.innerHTML = '<option value="">Nenhum insumo cadastrado</option>';
+            } else {
+                insumos.forEach(insumo => {
+                    const option = document.createElement('option');
+                    option.value = insumo.id;
+                    option.textContent = `${insumo.nome} (R$ ${insumo.custo.toFixed(2)}/${insumo.unidade})`;
+                    select.appendChild(option);
+                });
+            }
+            
             selectDiv.appendChild(select);
 
             // Input de quantidade
@@ -456,7 +483,7 @@
             // Botão de remover linha
             const removeBtn = document.createElement('button');
             removeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-            removeBtn.classList.add('p-2', 'rounded-lg', 'text-rosa-destaque', 'hover:bg-rosa-medio', 'transition-colors');
+            removeBtn.classList.add('p-2', 'rounded-lg', 'text-rosa-destaque', 'hover:bg-rosa-medio');
             removeBtn.onclick = () => container.removeChild(div);
 
             div.appendChild(selectDiv);
@@ -465,32 +492,31 @@
             container.appendChild(div);
         }
 
-        // Calcula o preço final de um produto e o adiciona à lista
         function calcularPrecoProduto() {
             const nomeProduto = document.getElementById('produtoNome').value.trim();
             const margemLucro = parseFloat(document.getElementById('produtoMargemLucro').value);
             const insumosProdutoElements = document.querySelectorAll('#insumosProdutoContainer > div');
 
             if (!nomeProduto || isNaN(margemLucro) || margemLucro < 0) {
-                showMessage('Por favor, preencha o nome do produto e uma margem de lucro válida.');
+                showMessage('Por favor, preencha o nome e a margem de lucro corretamente.');
                 return;
             }
 
             if (insumosProdutoElements.length === 0) {
-                showMessage('Adicione pelo menos um insumo ao produto para calcular o preço.');
+                showMessage('Adicione pelo menos um insumo ao produto.');
                 return;
             }
 
             let custoTotalProduto = 0;
             const insumosUtilizadosNoProduto = [];
-
             let hasError = false;
+
             insumosProdutoElements.forEach(element => {
                 const insumoId = element.querySelector('select').value;
                 const quantidade = parseFloat(element.querySelector('input[type="number"]').value);
 
                 if (!insumoId || isNaN(quantidade) || quantidade <= 0) {
-                    showMessage('Por favor, selecione um insumo e insira uma quantidade válida para todos os insumos do produto.');
+                    showMessage('Por favor, selecione um insumo e insira uma quantidade válida.');
                     hasError = true;
                     return;
                 }
@@ -501,12 +527,12 @@
                     insumosUtilizadosNoProduto.push({
                         insumoId: insumoId,
                         quantidade: quantidade,
-                        nome: insumoEncontrado.nome, // Para facilitar a exibição
+                        nome: insumoEncontrado.nome,
                         custoUnitario: insumoEncontrado.custo,
                         unidade: insumoEncontrado.unidade
                     });
                 } else {
-                    showMessage(`Insumo com ID "${insumoId}" não encontrado. Verifique se foi removido.`);
+                    showMessage(`Insumo não encontrado. Atualize a página e tente novamente.`);
                     hasError = true;
                     return;
                 }
@@ -526,31 +552,39 @@
             };
 
             produtos.push(novoProduto);
+            salvarDados();
             renderizarProdutos();
-            showMessage(`Produto "${nomeProduto}" adicionado com sucesso!\nPreço de Venda: R$ ${precoVenda.toFixed(2)}`);
+            
+            showMessage(`
+                <div class="mb-3">
+                    <p>Produto <span class="font-bold text-rosa-destaque">"${nomeProduto}"</span></p>
+                    <p>adicionado com sucesso!</p>
+                </div>
+                <p class="text-lg">Preço de Venda: <span class="font-bold text-rosa-destaque text-xl">R$ ${precoVenda.toFixed(2)}</span></p>
+            `);
 
-            // Limpa os campos do formulário do produto
+            // Limpa os campos
             document.getElementById('produtoNome').value = '';
             document.getElementById('produtoMargemLucro').value = '';
-            document.getElementById('insumosProdutoContainer').innerHTML = ''; // Limpa as linhas de insumos
-            adicionarLinhaInsumoProduto(); // Adiciona uma linha vazia para começar
+            document.getElementById('insumosProdutoContainer').innerHTML = '';
+            adicionarLinhaInsumoProduto();
         }
 
-        // Renderiza a lista de produtos na UI
         function renderizarProdutos() {
             const listaProdutosDiv = document.getElementById('listaProdutos');
-            listaProdutosDiv.innerHTML = ''; // Limpa a lista existente
+            listaProdutosDiv.innerHTML = '';
 
             if (produtos.length === 0) {
-                listaProdutosDiv.innerHTML = '<p class="text-cinza-medio italic text-center py-8">Nenhum produto cadastrado ainda.</p>';
+                listaProdutosDiv.innerHTML = '<p class="text-cinza-medio italic text-center py-8">Nenhum produto precificado ainda.</p>';
                 return;
             }
 
             const div = document.createElement('div');
             div.classList.add('space-y-6');
+            
             produtos.forEach(produto => {
                 const produtoDiv = document.createElement('div');
-                produtoDiv.classList.add('produto-item', 'bg-white', 'p-5', 'rounded-xl', 'shadow-sm');
+                produtoDiv.classList.add('produto-item', 'bg-white', 'p-5', 'rounded-xl', 'shadow-sm', 'fade-in');
                 produtoDiv.innerHTML = `
                     <div class="flex justify-between items-start mb-4">
                         <div>
@@ -564,7 +598,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button onclick="removerProduto('${produto.id}')" class="text-rosa-destaque hover:text-rosa-escuro p-2 rounded-full hover:bg-rosa-claro transition-colors">
+                        <button onclick="removerProduto('${produto.id}')" class="text-rosa-destaque hover:text-rosa-escuro p-2 rounded-full hover:bg-rosa-claro">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </div>
@@ -575,7 +609,7 @@
                             <p class="text-2xl font-bold preco-destaque">R$ ${produto.precoFinal.toFixed(2)}</p>
                         </div>
                         <div class="text-rosa-destaque text-4xl">
-                            <i class="fa-solid fa-paper-plane"></i>
+                            <i class="fa-solid fa-tag"></i>
                         </div>
                     </div>
                     
@@ -596,43 +630,48 @@
                 `;
                 div.appendChild(produtoDiv);
             });
+            
             listaProdutosDiv.appendChild(div);
         }
 
-        // Remove um produto do "banco de dados"
         function removerProduto(id) {
             produtos = produtos.filter(produto => produto.id !== id);
+            salvarDados();
             renderizarProdutos();
             showMessage('Produto removido com sucesso.');
         }
 
-        // Inicializa a UI ao carregar a página
+        // Inicialização
         window.onload = function() {
+            carregarDados();
             renderizarInsumos();
             renderizarProdutos();
-            adicionarLinhaInsumoProduto(); // Adiciona uma linha de insumo para começar a adicionar produto
+            adicionarLinhaInsumoProduto();
             
-            // Adiciona alguns insumos de exemplo
-            insumos.push({
-                id: gerarIdUnico(),
-                nome: "Papel Fotográfico A4",
-                custo: 0.75,
-                unidade: "folha"
-            });
-            insumos.push({
-                id: gerarIdUnico(),
-                nome: "Fita Decorativa",
-                custo: 2.50,
-                unidade: "metro"
-            });
-            insumos.push({
-                id: gerarIdUnico(),
-                nome: "Cola Artesanal",
-                custo: 8.90,
-                unidade: "pote"
-            });
-            
-            renderizarInsumos();
+            // Adiciona alguns insumos de exemplo se estiver vazio
+            if (insumos.length === 0) {
+                insumos.push({
+                    id: gerarIdUnico(),
+                    nome: "Papel Fotográfico A4",
+                    custo: 0.75,
+                    unidade: "folha"
+                });
+                insumos.push({
+                    id: gerarIdUnico(),
+                    nome: "Fita Decorativa",
+                    custo: 2.50,
+                    unidade: "metro"
+                });
+                insumos.push({
+                    id: gerarIdUnico(),
+                    nome: "Cola Artesanal",
+                    custo: 8.90,
+                    unidade: "pote"
+                });
+                
+                salvarDados();
+                renderizarInsumos();
+            }
         };
     </script>
 </body>
